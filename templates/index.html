@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AnalytIQ ✦</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+  body {
+    margin: 0;
+    height: 100vh;
+    font-family: "Poppins", sans-serif;
+    background: radial-gradient(circle at 30% 20%, #0c001a, #08002a, #000012);
+    color: #e6e6ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .bg-symbols {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    background-image: 
+      url('https://cdn-icons-png.flaticon.com/512/4712/4712109.png'),
+      url('https://cdn-icons-png.flaticon.com/512/3050/3050514.png'),
+      url('https://cdn-icons-png.flaticon.com/512/1828/1828673.png'),
+      url('https://cdn-icons-png.flaticon.com/512/1383/1383445.png');
+    background-repeat: no-repeat;
+    background-size: 120px, 90px, 80px, 90px;
+    background-position: 15% 15%, 85% 15%, 15% 80%, 85% 85%;
+    opacity: 0.8;
+    filter: drop-shadow(0 0 20px #9c6cff);
+  }
+
+  .chat-wrapper {
+    background: rgba(15, 0, 40, 0.85);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(130, 70, 255, 0.3);
+    border-radius: 25px;
+    width: 90%;
+    max-width: 900px;
+    height: 85vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 45px rgba(120, 60, 255, 0.3);
+    overflow: hidden;
+    position: relative;
+    z-index: 2;
+  }
+
+  header {
+    background: linear-gradient(90deg, #3e0b90, #12004a, #08002a);
+    text-align: center;
+    padding: 18px;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-shadow: 0 0 10px #a580ff;
+    border-bottom: 2px solid #5222b5;
+  }
+
+  .chat-box {
+    flex: 1;
+    padding: 25px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    scrollbar-width: thin;
+    scrollbar-color: #823fff #0a001c;
+  }
+
+  .message {
+    display: flex;
+    align-items: flex-start;
+    margin: 12px 0;
+    max-width: 85%;
+    line-height: 1.5;
+    animation: fadeIn 0.4s ease-in;
+  }
+
+  .ai, .user {
+    border-radius: 16px;
+    padding: 12px 16px;
+    border: 1px solid transparent;
+    word-wrap: break-word;
+  }
+
+  .ai {
+    background: linear-gradient(145deg, #190052, #2a0070);
+    border-color: #7537ff;
+    box-shadow: 0 0 10px rgba(120, 0, 255, 0.3);
+    align-self: flex-start;
+    color: #e6ddff;
+  }
+
+  .user {
+    background: linear-gradient(145deg, #062a74, #081f47);
+    border-color: #2490ff;
+    box-shadow: 0 0 10px rgba(40, 140, 255, 0.3);
+    align-self: flex-end;
+    color: #e0eaff;
+  }
+
+  .avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    margin-right: 10px;
+    background-size: cover;
+    flex-shrink: 0;
+    border: 2px solid rgba(255,255,255,0.1);
+  }
+
+  .ai .avatar {
+    background-image: url('https://cdn-icons-png.flaticon.com/512/4712/4712109.png');
+  }
+
+  .user .avatar {
+    background-image: url('https://cdn-icons-png.flaticon.com/512/4140/4140048.png');
+    background-position: center;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .input-area {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background: rgba(20, 0, 60, 0.9);
+    border-top: 1px solid rgba(130, 70, 255, 0.4);
+  }
+
+  .file-upload {
+    background: rgba(40, 0, 120, 0.8);
+    border: 1px solid rgba(150, 100, 255, 0.3);
+    color: #e3d7ff;
+    border-radius: 10px;
+    padding: 10px 12px;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .file-upload:hover {
+    background: rgba(90, 0, 200, 0.8);
+  }
+
+  .input-area input[type="text"] {
+    flex: 1;
+    background: #0d0d26;
+    color: #ece8ff;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 15px;
+    font-size: 15px;
+    outline: none;
+    box-shadow: inset 0 0 8px rgba(160, 100, 255, 0.4);
+  }
+
+  .input-area button {
+    background: linear-gradient(90deg, #661aff, #9b5fff);
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-weight: 600;
+    padding: 12px 18px;
+    margin-left: 8px;
+    cursor: pointer;
+    box-shadow: 0 0 12px rgba(150, 80, 255, 0.5);
+    transition: 0.3s;
+  }
+
+  .input-area button:hover {
+    background: linear-gradient(90deg, #8b33ff, #c87cff);
+    box-shadow: 0 0 18px rgba(180, 90, 255, 0.7);
+  }
+
+  footer {
+    text-align: center;
+    font-size: 13px;
+    color: #a0a0b3;
+    padding: 10px;
+    border-top: 1px solid #3a0a80;
+  }
+
+  footer span {
+    color: #b88fff;
+    font-weight: 500;
+  }
+</style>
+</head>
+
+<body>
+  <div class="bg-symbols"></div>
+
+  <div class="chat-wrapper">
+    <header>✦ AnalytIQ ✦</header>
+
+    <div class="chat-box" id="chatBox">
+      <div class="message ai">
+        <div class="avatar"></div>
+        <div>✪ Greetings, data explorer! Please upload your CSV file to begin analyzing.</div>
+      </div>
+    </div>
+
+    <div class="input-area">
+      <input type="file" id="fileInput" class="file-upload" accept=".csv">
+      <input type="text" id="prompt" placeholder="Ask about your dataset..." disabled>
+      <button id="sendBtn" disabled>➤ Send</button>
+    </div>
+
+    <footer>⚛ Reserved by <span>Trevin Rodrigo</span> ✦</footer>
+  </div>
+
+  <!-- 🔊 Sound Effects -->
+  <audio id="sendSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_5e0eeb7ec3.mp3" preload="auto"></audio>
+  <audio id="receiveSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_11e7b78a14.mp3" preload="auto"></audio>
+
+  <script>
+    const chatBox = document.getElementById('chatBox');
+    const promptInput = document.getElementById('prompt');
+    const sendBtn = document.getElementById('sendBtn');
+    const fileInput = document.getElementById('fileInput');
+    const sendSound = document.getElementById('sendSound');
+    const receiveSound = document.getElementById('receiveSound');
+
+    sendSound.volume = 0.4;
+    receiveSound.volume = 0.4;
+
+    let audioUnlocked = false;
+
+    async function unlockAudio() {
+      if (audioUnlocked) return;
+      try {
+        await sendSound.play().then(() => sendSound.pause());
+        await receiveSound.play().then(() => receiveSound.pause());
+        audioUnlocked = true;
+      } catch (err) {
+        console.warn('Audio unlock failed:', err);
+      }
+    }
+
+    document.addEventListener('click', unlockAudio, { once: true });
+
+    function appendMessage(content, sender) {
+      const div = document.createElement('div');
+      div.className = `message ${sender}`;
+      const avatar = document.createElement('div');
+      avatar.className = 'avatar';
+      const text = document.createElement('div');
+      text.innerHTML = content;
+      div.appendChild(avatar);
+      div.appendChild(text);
+      chatBox.appendChild(div);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    async function uploadFile() {
+      if (!fileInput.files.length) return alert("Please select a CSV file first.");
+      const formData = new FormData();
+      formData.append('file', fileInput.files[0]);
+      appendMessage("⟠ Uploading your dataset...", "ai");
+      receiveSound.play();
+
+      try {
+        const response = await fetch('/upload', { method: 'POST', body: formData });
+        const data = await response.json();
+        if (data.success) {
+          appendMessage("✦ File uploaded successfully! You may now ask me questions about it.", "ai");
+          promptInput.disabled = false;
+          sendBtn.disabled = false;
+          receiveSound.play();
+        } else {
+          appendMessage("⚠ Upload failed. Please try again.", "ai");
+          receiveSound.play();
+        }
+      } catch {
+        appendMessage("⚠ Server error. Please make sure Flask is running.", "ai");
+        receiveSound.play();
+      }
+    }
+
+    async function sendPrompt() {
+      const prompt = promptInput.value.trim();
+      if (!prompt) return;
+      appendMessage(prompt, "user");
+      sendSound.play();
+      promptInput.value = '';
+      appendMessage("⌛ Thinking through your data...", "ai");
+
+      try {
+        const res = await fetch('/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt })
+        });
+        const data = await res.json();
+        if (data.response) {
+          appendMessage(`✦ ${data.response}`, "ai");
+          receiveSound.play();
+        } else {
+          appendMessage(`⚠ ${data.error || "No response received."}`, "ai");
+          receiveSound.play();
+        }
+      } catch {
+        appendMessage("⚠ Connection error. Please check your Flask server.", "ai");
+        receiveSound.play();
+      }
+    }
+
+    fileInput.addEventListener('change', uploadFile);
+    sendBtn.addEventListener('click', sendPrompt);
+    promptInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendPrompt(); });
+  </script>
+</body>
+</html>
