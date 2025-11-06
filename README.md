@@ -25,7 +25,7 @@ It uses **Google’s Gemini API** to generate valid **Pandas expressions** that 
 - 🔹 Upload your own CSV file securely  
 - 🔹 Ask natural language questions  
 - 🔹 Auto-generates and runs Pandas code  
-- 🔹 Displays the AI’s executed code and result  
+- 🔹 Displays the AI’s result  
 - 🔹 Built with **Flask**, **Pandas**, and **Gemini API**
 
 ---
